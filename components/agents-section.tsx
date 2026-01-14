@@ -25,7 +25,7 @@ export function AgentsSection() {
   ];
 
   return (
-    <section className="w-full max-w-5xl mx-auto space-y-12">
+    <section className="w-full max-w-5xl mx-auto space-y-12 pb-48">
       <div className="text-center space-y-4">
         <h3 className="text-2xl font-bold tracking-tighter text-[#ededed] uppercase">
           THE AI SQUAD
