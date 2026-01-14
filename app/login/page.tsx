@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Eye, EyeOff, Github } from "lucide-react";
-import { loginWithGithub } from "./actions";
+import Link from "next/link";
+import { Eye, EyeOff, Github, ArrowLeft } from "lucide-react";
+import { loginWithGithub, login, signup } from "./actions";
 
 // --- TYPE DEFINITIONS ---
 
@@ -18,7 +19,6 @@ interface SignInPageProps {
   description?: React.ReactNode;
   heroImageSrc?: string;
   testimonials?: Testimonial[];
-  onSignIn?: (event: React.FormEvent<HTMLFormElement>) => void;
   onResetPassword?: () => void;
   onCreateAccount?: () => void;
 }
@@ -80,14 +80,50 @@ export default function SignInPage({
       text: "Finally, a login screen that understands the darkness of my soul.",
     },
   ],
-  onSignIn,
-  onResetPassword,
-  onCreateAccount,
 }: SignInPageProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleLogin(formData: FormData) {
+    setIsLoading(true);
+    setMessage(null);
+    setIsError(false);
+    
+    const result = await login(formData);
+    
+    if (result?.error) {
+      setMessage(result.error);
+      setIsError(true);
+      setIsLoading(false);
+    }
+    // If successful, redirect happens server-side
+  }
+
+  async function handleSignup(formData: FormData) {
+    setIsLoading(true);
+    setMessage(null);
+    setIsError(false);
+
+    const result = await signup(formData);
+
+    if (result?.error) {
+      setMessage(result.error);
+      setIsError(true);
+    } else if (result?.message) {
+      setMessage(result.message);
+      setIsError(false);
+    }
+    setIsLoading(false);
+  }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row font-sans w-full bg-[#050505] text-[#ededed] overflow-hidden selection:bg-white selection:text-black">
+    <div className="min-h-screen flex flex-col md:flex-row font-sans w-full bg-[#050505] text-[#ededed] overflow-hidden selection:bg-white selection:text-black relative">
+      <Link href="/" className="absolute top-8 left-8 z-50 text-zinc-500 hover:text-white transition-colors">
+        <ArrowLeft className="w-6 h-6" />
+      </Link>
+
       {/* Left column: sign-in form */}
       <section className="flex-1 flex items-center justify-center p-8 relative">
         <div className="w-full max-w-md z-10">
@@ -102,9 +138,7 @@ export default function SignInPage({
             </div>
 
             <div className="space-y-5">
-              {/* NOTE: Standard login form is strictly UI for now as requested. 
-                  Functionality is focused on GitHub OAuth. */}
-              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-5" action={handleLogin}>
                 <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 space-y-2">
                   <label className="text-xs font-bold text-[#a1a1aa] uppercase tracking-wider pl-1">
                     Email Address
@@ -115,6 +149,8 @@ export default function SignInPage({
                       type="email"
                       placeholder="user@example.com"
                       className="w-full bg-transparent text-sm p-4 text-[#ededed] placeholder:text-[#3f3f46] focus:outline-none font-mono"
+                      suppressHydrationWarning
+                      required
                     />
                   </GlassInputWrapper>
                 </div>
@@ -130,6 +166,8 @@ export default function SignInPage({
                         type={showPassword ? "text" : "password"}
                         placeholder="••••••••"
                         className="w-full bg-transparent text-sm p-4 pr-12 text-[#ededed] placeholder:text-[#3f3f46] focus:outline-none font-mono"
+                        suppressHydrationWarning
+                        required
                       />
                       <button
                         type="button"
@@ -157,25 +195,36 @@ export default function SignInPage({
                       REMEMBER_ME
                     </span>
                   </label>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onResetPassword?.();
-                    }}
+                  <Link
+                    href="/forgot-password"
                     className="hover:text-[#ededed] text-[#ededed]/60 transition-colors uppercase tracking-wider"
                   >
                     Reset password
-                  </a>
+                  </Link>
                 </div>
 
-                <button
-                  type="submit"
-                  disabled
-                  className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 w-full rounded-none bg-[#27272a] py-4 font-bold font-mono text-[#a1a1aa] cursor-not-allowed opacity-50 uppercase tracking-widest border border-transparent"
-                >
-                  Sign In (Disabled)
-                </button>
+                {message && (
+                  <div className={`p-4 text-xs font-mono border ${isError ? 'border-red-900 bg-red-950/20 text-red-500' : 'border-green-900 bg-green-950/20 text-green-500'} animate-in fade-in`}>
+                    {message}
+                  </div>
+                )}
+
+                <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 space-y-3">
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="w-full rounded-none bg-[#ededed] text-[#050505] py-4 font-bold font-mono hover:bg-[#a1a1aa] transition-colors uppercase tracking-widest border border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isLoading ? "CALCULATING..." : "SIGN IN"}
+                    </button>
+                    <button
+                      formAction={handleSignup}
+                      disabled={isLoading}
+                      className="w-full rounded-none bg-transparent text-[#ededed] py-2 font-bold font-mono hover:bg-[#27272a] transition-colors uppercase tracking-widest border border-transparent text-xs"
+                    >
+                      CREATE ACCOUNT
+                    </button>
+                </div>
               </form>
 
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 relative flex items-center justify-center py-2">
@@ -187,27 +236,13 @@ export default function SignInPage({
 
               <button
                 onClick={() => loginWithGithub()}
-                className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000 w-full flex items-center justify-center gap-3 border border-[#ededed] bg-[#ededed] text-[#050505] rounded-none py-4 hover:bg-[#a1a1aa] hover:border-[#a1a1aa] transition-all group"
+                className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000 w-full flex items-center justify-center gap-3 border border-[#27272a] bg-[#0a0a0a] text-[#ededed] rounded-none py-4 hover:bg-[#27272a] hover:border-[#52525b] transition-all group"
               >
                 <Github className="size-5 group-hover:scale-110 transition-transform" />
                 <span className="font-bold font-mono uppercase tracking-widest">
                   GitHub
                 </span>
               </button>
-
-              <p className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000 text-center text-xs font-mono text-[#52525b] uppercase tracking-wider mt-8">
-                No access?{" "}
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onCreateAccount?.();
-                  }}
-                  className="text-[#ededed] hover:underline transition-colors"
-                >
-                  Request Clearance
-                </a>
-              </p>
             </div>
           </div>
         </div>
