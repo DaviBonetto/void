@@ -1,7 +1,7 @@
 "use server";
 
 export async function analyzeJobDescription(jobText: string) {
-  console.log("🚀 Initializing Headhunter via OpenRouter (google/gemini-2.0-flash-exp:free)...");
+  console.log("🚀 Initializing Headhunter via OpenRouter (deepseek/deepseek-r1-0528:free)...");
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -14,23 +14,23 @@ export async function analyzeJobDescription(jobText: string) {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
-        "HTTP-Referer": "http://localhost:3000", // Required for OpenRouter
-        "X-Title": "VOID Agent", // Required for OpenRouter
+        "HTTP-Referer": "http://localhost:3000",
+        "X-Title": "VOID Agent",
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "google/gemini-2.0-flash-exp:free",
+        "model": "deepseek/deepseek-r1-0528:free",
         "messages": [
           {
             "role": "system",
-            "content": "You are an elite Tech Recruiter. Analyze the Job Description. Return ONLY a raw JSON object (no markdown, no backticks) with these exact keys: role_title, company_name, seniority_level, tech_stack (array of strings), summary."
+            "content": "You are an elite Tech Recruiter. Analyze the Job Description. Return ONLY a raw JSON object (no markdown, no backticks, no reasoning text) with these exact keys: role_title, company_name, seniority_level, tech_stack (array of strings), summary."
           },
           {
             "role": "user",
             "content": jobText
           }
         ],
-        "temperature": 0.2
+        "temperature": 0.1 // Lower temperature for DeepSeek R1 to focus on JSON
       })
     });
 
@@ -45,14 +45,23 @@ export async function analyzeJobDescription(jobText: string) {
     
     console.log("🤖 Raw Response:", content);
 
-    // Security cleanup (in case model returns markdown)
-    content = content.replace(/```json/g, "").replace(/```/g, "").trim();
+    // Robust JSON Extraction: Find the first '{' and last '}'
+    const startIndex = content.indexOf('{');
+    const endIndex = content.lastIndexOf('}');
+
+    if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+        content = content.substring(startIndex, endIndex + 1);
+    } else {
+        // Fallback cleanup if strict finding fails
+        content = content.replace(/```json/g, "").replace(/```/g, "").trim();
+    }
 
     try {
         const data = JSON.parse(content);
         return data;
     } catch (parseError) {
         console.error("JSON Parse Error:", parseError);
+        console.error("Failed Content:", content);
         return { error: "Failed to parse AI response. Please try again." };
     }
 
