@@ -3,8 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navbar } from "@/components/navbar";
 import { HowItWorks } from "@/components/how-it-works";
-import { TechOrbit } from "@/components/tech-orbit";
 import { Footer } from "@/components/footer";
+import { AgentsSection } from "@/components/agents-section";
+import { ImpactSection } from "@/components/impact-section";
+import { CtaSection } from "@/components/cta-section";
 
 export default function Home() {
   return (
@@ -16,11 +18,10 @@ export default function Home() {
       <Navbar />
 
       {/* Main Content */}
-      <main className="z-10 flex flex-col items-center text-center w-full space-y-24 mt-32 mb-20 px-4">
+      <main className="z-10 flex flex-col items-center text-center w-full mt-32 mb-0">
         
         {/* Hero Section */}
-        <section className="space-y-6 w-full max-w-3xl mx-auto">
-          {/* ... */}
+        <section className="space-y-6 w-full max-w-3xl mx-auto px-4">
           <div className="inline-block px-3 py-1 mb-4 text-xs font-medium border border-[#27272a] bg-[#050505] text-[#ededed] uppercase tracking-widest">
             System Online v1.0
           </div>
@@ -34,7 +35,7 @@ export default function Home() {
         </section>
 
         {/* Action Card */}
-        <div className="w-full max-w-3xl mx-auto">
+        <div className="w-full max-w-3xl mx-auto px-4 mt-12 mb-24">
           <Card className="w-full bg-[#050505] border border-[#27272a] rounded-none shadow-none">
             <CardContent className="p-6 sm:p-10 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -92,8 +93,14 @@ export default function Home() {
         {/* How It Works Section */}
         <HowItWorks />
 
-        {/* Tech Orbit Section */}
-        <TechOrbit />
+        {/* The AI Squad Section */}
+        <AgentsSection />
+
+        {/* Impact Metrics Section */}
+        <ImpactSection />
+
+        {/* Final CTA Section */}
+        <CtaSection />
 
       </main>
 
