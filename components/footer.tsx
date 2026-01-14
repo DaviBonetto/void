@@ -26,29 +26,14 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Right: Links */}
-        <div className="flex gap-16 text-xs font-mono uppercase tracking-wider text-[#a1a1aa]">
-          <div className="flex flex-col gap-4">
-            <span className="text-[#ededed] font-bold">Product</span>
-            <Link href="#" className="hover:text-[#ededed] transition-colors">Orbit</Link>
-            <Link href="#" className="hover:text-[#ededed] transition-colors">Manifesto</Link>
-            <Link href="#" className="hover:text-[#ededed] transition-colors">Pricing</Link>
-          </div>
-          <div className="flex flex-col gap-4">
-             <span className="text-[#ededed] font-bold">Resources</span>
-            <Link href="#" className="hover:text-[#ededed] transition-colors">Documentation</Link>
-            <Link href="#" className="hover:text-[#ededed] transition-colors">API</Link>
-            <Link href="#" className="hover:text-[#ededed] transition-colors">Status</Link>
-          </div>
-          <div className="flex flex-col gap-4">
-             <span className="text-[#ededed] font-bold">Social</span>
-            <Link href="https://github.com/DaviBonetto/void" className="hover:text-[#ededed] transition-colors flex items-center gap-2">
-              <Github className="size-3" /> GitHub
-            </Link>
-            <Link href="https://x.com/Davibonetto" className="hover:text-[#ededed] transition-colors flex items-center gap-2">
-               <Twitter className="size-3" /> X (Twitter)
-            </Link>
-          </div>
+        {/* Right: Social Buttons */}
+        <div className="flex gap-4 items-end">
+          <Link href="https://github.com/DaviBonetto/void" target="_blank" rel="noopener noreferrer" className="h-10 px-4 flex items-center gap-2 border border-[#27272a] bg-[#000000] text-[#a1a1aa] hover:border-[#ededed] hover:text-[#ededed] transition-colors text-xs font-mono uppercase tracking-wider">
+            <Github className="size-3" /> GitHub
+          </Link>
+          <Link href="https://x.com/Davibonetto" target="_blank" rel="noopener noreferrer" className="h-10 px-4 flex items-center gap-2 border border-[#27272a] bg-[#000000] text-[#a1a1aa] hover:border-[#ededed] hover:text-[#ededed] transition-colors text-xs font-mono uppercase tracking-wider">
+             <Twitter className="size-3" /> Twitter
+          </Link>
         </div>
       </div>
 
