@@ -1,44 +1,49 @@
 export function ImpactSection() {
   return (
-    <section className="w-full bg-[#000000] border-y border-[#27272a] py-24">
-      <div className="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section className="w-full bg-[#050505] border-y border-[#27272a] py-32">
+      <div className="max-w-5xl mx-auto px-6 space-y-12">
         
-        {/* Left: Big Metric */}
-        <div className="space-y-4">
-          <h2 className="text-[100px] leading-none font-bold text-[#ededed] tracking-tighter">
-            +45%
-          </h2>
-          <p className="text-[#a1a1aa] font-mono text-xl uppercase tracking-widest pl-2">
-            Avg. Interview Probability Boost
+        <div className="text-center space-y-4">
+          <h3 className="text-2xl font-bold tracking-tighter text-[#ededed] uppercase">
+            System Performance
+          </h3>
+          <p className="text-[#a1a1aa] font-mono text-xs uppercase tracking-widest">
+            Real-time impact analysis
           </p>
         </div>
 
-        {/* Right: Bar Chart & Stats */}
-        <div className="space-y-8">
-           <div className="space-y-4">
-              <h4 className="text-[#ededed] font-bold text-lg">HIRING PROBABILITY BOOST</h4>
-              {/* Growth Curve Chart: Starts low, ends high */}
-              <div className="flex items-end gap-2 h-40 w-full border-b border-[#27272a] pb-2">
-                {[20, 25, 30, 40, 45, 55, 65, 75, 85, 100].map((h, i) => (
-                  <div 
-                    key={i} 
-                    className="flex-1 bg-[#27272a] hover:bg-[#ededed] transition-all duration-300"
-                    style={{ height: `${h}%` }} 
-                  />
-                ))}
-              </div>
-           </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Box 1 */}
+          <div className="flex flex-col items-center justify-center p-10 border border-[#27272a] bg-[#000000] hover:border-[#ededed] transition-colors duration-300">
+            <h2 className="text-6xl sm:text-7xl font-bold text-[#ededed] tracking-tighter mb-4">
+              +45%
+            </h2>
+            <p className="text-[#a1a1aa] font-mono text-xs uppercase tracking-widest text-center">
+              Avg. Interview Probability Boost
+            </p>
+          </div>
 
-           <div className="grid grid-cols-2 gap-4">
-             <div className="p-4 border border-[#27272a] bg-[#050505]">
-               <div className="text-3xl font-bold text-[#ededed]">&lt; 2.5s</div>
-               <div className="text-xs text-[#a1a1aa] uppercase tracking-widest mt-1">Analysis & Blueprint Generation</div>
-             </div>
-             <div className="p-4 border border-[#27272a] bg-[#050505]">
-               <div className="text-3xl font-bold text-[#ededed]">1,204</div>
-               <div className="text-xs text-[#a1a1aa] uppercase tracking-widest mt-1">Career Blueprints Architected</div>
-             </div>
-           </div>
+          {/* Box 2 */}
+          <div className="flex flex-col items-center justify-center p-10 border border-[#27272a] bg-[#000000] hover:border-[#ededed] transition-colors duration-300">
+            <h2 className="text-6xl sm:text-7xl font-bold text-[#ededed] tracking-tighter mb-4">
+              &lt; 2.5s
+            </h2>
+            <p className="text-[#a1a1aa] font-mono text-xs uppercase tracking-widest text-center">
+              Analysis & Generation Speed
+            </p>
+          </div>
+
+          {/* Box 3 */}
+          <div className="flex flex-col items-center justify-center p-10 border border-[#27272a] bg-[#000000] hover:border-[#ededed] transition-colors duration-300">
+             <h2 className="text-6xl sm:text-7xl font-bold text-[#ededed] tracking-tighter mb-4">
+              1,204
+            </h2>
+            <p className="text-[#a1a1aa] font-mono text-xs uppercase tracking-widest text-center">
+              Career Blueprints Architected
+            </p>
+          </div>
+
         </div>
 
       </div>
