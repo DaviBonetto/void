@@ -6,7 +6,7 @@ const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey || "");
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
+  model: "gemini-2.0-flash-exp",
   generationConfig: {
     responseMimeType: "application/json",
     responseSchema: {
@@ -16,7 +16,8 @@ const model = genAI.getGenerativeModel({
         company_name: { type: SchemaType.STRING },
         seniority_level: { 
           type: SchemaType.STRING,
-          enum: ["Junior", "Mid", "Senior", "Lead"] 
+          enum: ["Junior", "Mid", "Senior", "Lead"],
+          format: "enum"
         },
         tech_stack: { 
           type: SchemaType.ARRAY,

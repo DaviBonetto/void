@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -71,9 +72,11 @@ export default function Home() {
                 </div>
               </div>
 
-              <Button className="w-full h-14 bg-[#ededed] text-[#050505] hover:bg-[#a1a1aa] rounded-none uppercase tracking-widest font-bold text-sm border border-transparent hover:border-[#ededed] transition-all">
-                [ Initialize Gap Analysis ]
-              </Button>
+              <Link href="/login" className="w-full">
+                <Button className="w-full h-14 bg-[#ededed] text-[#050505] hover:bg-[#a1a1aa] rounded-none uppercase tracking-widest font-bold text-sm border border-transparent hover:border-[#ededed] transition-all">
+                  [ Initialize Gap Analysis ]
+                </Button>
+              </Link>
 
               {/* Social Badges */}
               <div className="flex items-center justify-center gap-4 pt-2">
