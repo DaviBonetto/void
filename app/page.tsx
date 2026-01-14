@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navbar } from "@/components/navbar";
+import { HowItWorks } from "@/components/how-it-works";
 
 export default function Home() {
   return (
@@ -13,10 +14,10 @@ export default function Home() {
       <Navbar />
 
       {/* Main Content */}
-      <main className="z-10 flex flex-col items-center text-center w-full max-w-3xl space-y-12 mt-20">
+      <main className="z-10 flex flex-col items-center text-center w-full max-w-5xl space-y-24 mt-20 mb-20">
         
         {/* Hero Section */}
-        <section className="space-y-6">
+        <section className="space-y-6 w-full max-w-3xl mx-auto">
           <div className="inline-block px-3 py-1 mb-4 text-xs font-medium border border-[#27272a] bg-[#050505] text-[#ededed] uppercase tracking-widest">
             System Online v1.0
           </div>
@@ -30,57 +31,63 @@ export default function Home() {
         </section>
 
         {/* Action Card */}
-        <Card className="w-full bg-[#050505] border border-[#27272a] rounded-none shadow-none">
-          <CardContent className="p-6 sm:p-10 space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2 text-left">
-                <label htmlFor="jd-url" className="text-xs uppercase tracking-wider text-[#a1a1aa] pl-1">
-                  Target // Job Description URL
-                </label>
-                <div className="relative group">
-                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-[#a1a1aa] text-xs">{">"}</span>
+        <div className="w-full max-w-3xl mx-auto">
+          <Card className="w-full bg-[#050505] border border-[#27272a] rounded-none shadow-none">
+            <CardContent className="p-6 sm:p-10 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2 text-left">
+                  <label htmlFor="jd-url" className="text-xs uppercase tracking-wider text-[#a1a1aa] pl-1">
+                    Target // Job Description URL
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span className="text-[#a1a1aa] text-xs">{">"}</span>
+                    </div>
+                    <Input 
+                      id="jd-url" 
+                      placeholder="https://linkedin.com/jobs/..." 
+                      className="pl-8 bg-[#0a0a0a] border-[#27272a] rounded-none h-12 text-[#ededed] placeholder:text-[#3f3f46] focus-visible:ring-0 focus-visible:border-[#ededed] transition-colors"
+                    />
                   </div>
-                  <Input 
-                    id="jd-url" 
-                    placeholder="https://linkedin.com/jobs/..." 
-                    className="pl-8 bg-[#0a0a0a] border-[#27272a] rounded-none h-12 text-[#ededed] placeholder:text-[#3f3f46] focus-visible:ring-0 focus-visible:border-[#ededed] transition-colors"
-                  />
+                </div>
+                <div className="space-y-2 text-left">
+                  <label htmlFor="github-url" className="text-xs uppercase tracking-wider text-[#a1a1aa] pl-1">
+                    Source // GitHub Profile URL
+                  </label>
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span className="text-[#a1a1aa] text-xs">{">"}</span>
+                    </div>
+                    <Input 
+                      id="github-url" 
+                      placeholder="https://github.com/username" 
+                      className="pl-8 bg-[#0a0a0a] border-[#27272a] rounded-none h-12 text-[#ededed] placeholder:text-[#3f3f46] focus-visible:ring-0 focus-visible:border-[#ededed] transition-colors"
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2 text-left">
-                <label htmlFor="github-url" className="text-xs uppercase tracking-wider text-[#a1a1aa] pl-1">
-                  Source // GitHub Profile URL
-                </label>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-[#a1a1aa] text-xs">{">"}</span>
-                  </div>
-                  <Input 
-                    id="github-url" 
-                    placeholder="https://github.com/username" 
-                    className="pl-8 bg-[#0a0a0a] border-[#27272a] rounded-none h-12 text-[#ededed] placeholder:text-[#3f3f46] focus-visible:ring-0 focus-visible:border-[#ededed] transition-colors"
-                  />
-                </div>
-              </div>
-            </div>
 
-            <Button className="w-full h-14 bg-[#ededed] text-[#050505] hover:bg-[#a1a1aa] rounded-none uppercase tracking-widest font-bold text-sm border border-transparent hover:border-[#ededed] transition-all">
-              [ Initialize Gap Analysis ]
-            </Button>
-            {/* Social Badges */}
-            <div className="flex items-center justify-center gap-4 pt-2">
-              <a href="https://github.com/DaviBonetto/void" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#a1a1aa] border border-[#27272a] bg-[#0a0a0a] hover:bg-[#27272a] transition-colors">
-                <span>★ GitHub Stars</span>
-                <span className="text-[#ededed]">0</span>
-              </a>
-              <a href="https://x.com/Davibonetto" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#a1a1aa] border border-[#27272a] bg-[#0a0a0a] hover:bg-[#27272a] transition-colors">
-                <span>Follow on X</span>
-                <span className="text-[#ededed]">@Davibonetto</span>
-              </a>
-            </div>
-          </CardContent>
-        </Card>
+              <Button className="w-full h-14 bg-[#ededed] text-[#050505] hover:bg-[#a1a1aa] rounded-none uppercase tracking-widest font-bold text-sm border border-transparent hover:border-[#ededed] transition-all">
+                [ Initialize Gap Analysis ]
+              </Button>
+
+              {/* Social Badges */}
+              <div className="flex items-center justify-center gap-4 pt-2">
+                <a href="https://github.com/DaviBonetto/void" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#a1a1aa] border border-[#27272a] bg-[#0a0a0a] hover:bg-[#27272a] transition-colors">
+                  <span>★ GitHub Stars</span>
+                  <span className="text-[#ededed]">0</span>
+                </a>
+                <a href="https://x.com/Davibonetto" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#a1a1aa] border border-[#27272a] bg-[#0a0a0a] hover:bg-[#27272a] transition-colors">
+                  <span>Follow on X</span>
+                  <span className="text-[#ededed]">@Davibonetto</span>
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* How It Works Section */}
+        <HowItWorks />
 
       </main>
 
