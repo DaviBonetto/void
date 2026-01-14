@@ -24,8 +24,8 @@ export default function Home() {
             Fill the <span className="text-[#a1a1aa] line-through decoration-[#27272a]">void</span> between<br />
             your code and your next job.
           </h2>
-          <p className="text-[#a1a1aa] text-sm sm:text-base max-w-xl mx-auto font-mono tracking-tight">
-            Perform a Gap Analysis between your current GitHub portfolio and your Dream Job Description. Generate specs that bridge the divide.
+          <p className="text-[#a1a1aa] text-sm sm:text-base max-w-xl mx-auto font-mono tracking-tight italic">
+            "No mundo onde a IA faz o técnico, o desafio não é construir, mas saber o que construir."
           </p>
         </section>
 
@@ -68,6 +68,17 @@ export default function Home() {
             <Button className="w-full h-14 bg-[#ededed] text-[#050505] hover:bg-[#a1a1aa] rounded-none uppercase tracking-widest font-bold text-sm border border-transparent hover:border-[#ededed] transition-all">
               [ Initialize Gap Analysis ]
             </Button>
+            {/* Social Badges */}
+            <div className="flex items-center justify-center gap-4 pt-2">
+              <a href="https://github.com/DaviBonetto/void" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#a1a1aa] border border-[#27272a] bg-[#0a0a0a] hover:bg-[#27272a] transition-colors">
+                <span>★ GitHub Stars</span>
+                <span className="text-[#ededed]">0</span>
+              </a>
+              <a href="https://x.com/Davibonetto" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#a1a1aa] border border-[#27272a] bg-[#0a0a0a] hover:bg-[#27272a] transition-colors">
+                <span>Follow on X</span>
+                <span className="text-[#ededed]">@Davibonetto</span>
+              </a>
+            </div>
           </CardContent>
         </Card>
 
