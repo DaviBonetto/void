@@ -1,7 +1,7 @@
 "use server";
 
 export async function analyzeJobDescription(jobText: string) {
-  console.log("🚀 Initializing Headhunter via OpenRouter (gpt-oss-20b:free)...");
+  console.log("🚀 Initializing Headhunter via OpenRouter (google/gemini-2.0-flash-exp:free)...");
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -19,7 +19,7 @@ export async function analyzeJobDescription(jobText: string) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        "model": "openai/gpt-oss-20b:free",
+        "model": "google/gemini-2.0-flash-exp:free",
         "messages": [
           {
             "role": "system",
@@ -30,14 +30,14 @@ export async function analyzeJobDescription(jobText: string) {
             "content": jobText
           }
         ],
-        "temperature": 0.2 // Low temperature for deterministic JSON
+        "temperature": 0.2
       })
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("OpenRouter Error:", errorText);
-      return { error: `OpenRouter API Error: ${response.statusText}` };
+      console.error(`🔥 OpenRouter API Error (${response.status} ${response.statusText}):`, errorText);
+      return { error: `OpenRouter Error: ${response.status} - ${errorText}` };
     }
 
     const json = await response.json();
