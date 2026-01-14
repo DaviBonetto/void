@@ -45,23 +45,36 @@ export async function analyzeJobDescription(jobText: string) {
     
     console.log("🤖 Raw Response:", content);
 
-    // Robust JSON Extraction: Find the first '{' and last '}'
+    // 1. Strip "Reasoning" blocks (<think>...</think>) common in DeepSeek R1
+    content = content.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+
+    // 2. Strip Markdown code blocks (```json ... ```)
+    content = content.replace(/```json/g, "").replace(/```/g, "").trim();
+
+    // 3. Robust Extraction: Find the *last* valid outer JSON object if multiple exist, or just the main one.
+    // We look for the first '{' and the last '}' *after* stripping reasoning.
     const startIndex = content.indexOf('{');
     const endIndex = content.lastIndexOf('}');
 
     if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
         content = content.substring(startIndex, endIndex + 1);
-    } else {
-        // Fallback cleanup if strict finding fails
-        content = content.replace(/```json/g, "").replace(/```/g, "").trim();
-    }
+    } 
 
     try {
         const data = JSON.parse(content);
         return data;
     } catch (parseError) {
         console.error("JSON Parse Error:", parseError);
-        console.error("Failed Content:", content);
+        console.error("Failed Content (Cleaned):", content);
+        
+        // Final fallback: Try to match a stricter JSON pattern if simple substring failed
+        try {
+             const transformMatch = content.match(/{[\s\S]*}/);
+             if (transformMatch) {
+                return JSON.parse(transformMatch[0]);
+             }
+        } catch (e) { /* ignore */ }
+
         return { error: "Failed to parse AI response. Please try again." };
     }
 
