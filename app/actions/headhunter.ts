@@ -1,55 +1,63 @@
 "use server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function analyzeJobDescription(jobText: string) {
-  console.log("🚀 Iniciando análise com Gemini 1.5 Flash...");
+  console.log("🚀 Initializing Headhunter via OpenRouter (gpt-oss-20b:free)...");
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    console.error("🔥 GEMINI_API_KEY is missing");
-    return { error: "Authentication failed. Server configuration error." };
+    console.error("🔥 OPENROUTER_API_KEY is missing.");
+    return { error: "Server configuration error: Missing API Key." };
   }
-
-  const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-  const prompt = `
-  Act as an expert Tech Recruiter.
-  Analyze the following Job Description and extract a valid JSON object.
-  Do not include markdown formatting like \`\`\`json. Just return the raw JSON string.
-
-  Keys required:
-  - role_title (string)
-  - company_name (string)
-  - seniority_level (string: Junior, Mid, Senior, Lead)
-  - tech_stack (array of strings, max 6 items)
-  - summary (string, max 20 words)
-
-  Job Description:
-  ${jobText}
-  `;
 
   try {
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    let text = response.text();
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "HTTP-Referer": "http://localhost:3000", // Required for OpenRouter
+        "X-Title": "VOID Agent", // Required for OpenRouter
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "model": "openai/gpt-oss-20b:free",
+        "messages": [
+          {
+            "role": "system",
+            "content": "You are an elite Tech Recruiter. Analyze the Job Description. Return ONLY a raw JSON object (no markdown, no backticks) with these exact keys: role_title, company_name, seniority_level, tech_stack (array of strings), summary."
+          },
+          {
+            "role": "user",
+            "content": jobText
+          }
+        ],
+        "temperature": 0.2 // Low temperature for deterministic JSON
+      })
+    });
 
-    console.log("🤖 Raw Response:", text);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("OpenRouter Error:", errorText);
+      return { error: `OpenRouter API Error: ${response.statusText}` };
+    }
 
-    // Surgical cleanup: remove markdown code blocks
-    text = text.replace(/```json/g, "").replace(/```/g, "").trim();
+    const json = await response.json();
+    let content = json.choices[0].message.content;
+    
+    console.log("🤖 Raw Response:", content);
 
-    const data = JSON.parse(text);
-    return data;
+    // Security cleanup (in case model returns markdown)
+    content = content.replace(/```json/g, "").replace(/```/g, "").trim();
+
+    try {
+        const data = JSON.parse(content);
+        return data;
+    } catch (parseError) {
+        console.error("JSON Parse Error:", parseError);
+        return { error: "Failed to parse AI response. Please try again." };
+    }
 
   } catch (error) {
-    console.error("� Error processing job description:", error);
-    return { error: "Failed to process job description. Please try again." };
+    console.error("🔥 Headhunter Execution Failed:", error);
+    return { error: "Failed to analyze job description via OpenRouter." };
   }
 }
-// IGNORE THE ABOVE COMMENT BLOCK IN CODE. I will provide the file content now.
-
-/*
-DECISION: I will use `gemini-1.5-flash` because 2.5 is likely a hallucination in the prompt or typo. 
-The log message confirms 1.5.
-*/
