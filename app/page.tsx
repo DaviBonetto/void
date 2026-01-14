@@ -4,10 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Navbar } from "@/components/navbar";
 import { HowItWorks } from "@/components/how-it-works";
 import { TechOrbit } from "@/components/tech-orbit";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 sm:p-20 relative overflow-hidden bg-background text-foreground selection:bg-white selection:text-black">
+    <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-background text-foreground selection:bg-white selection:text-black">
       {/* Decorative Grid Background - Subtle */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#27272a_1px,transparent_1px),linear-gradient(to_bottom,#27272a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
 
@@ -15,13 +16,11 @@ export default function Home() {
       <Navbar />
 
       {/* Main Content */}
-      <main className="z-10 flex flex-col items-center text-center w-full max-w-5xl space-y-24 mt-20 mb-20">
+      <main className="z-10 flex flex-col items-center text-center w-full space-y-24 mt-32 mb-20 px-4">
         
-        {/* ... Hero Section ... */}
-        {/* ... Action Card ... */}
-
         {/* Hero Section */}
         <section className="space-y-6 w-full max-w-3xl mx-auto">
+          {/* ... */}
           <div className="inline-block px-3 py-1 mb-4 text-xs font-medium border border-[#27272a] bg-[#050505] text-[#ededed] uppercase tracking-widest">
             System Online v1.0
           </div>
@@ -98,17 +97,8 @@ export default function Home() {
 
       </main>
 
-      {/* Footer / Status Line */}
-      <footer className="absolute bottom-0 left-0 right-0 p-6 z-10 flex justify-between items-end text-[10px] text-[#3f3f46] uppercase tracking-widest font-mono">
-        <div>
-          <p>VOID_AGENT_SYSTEM</p>
-          <p>STATUS: IDLE</p>
-        </div>
-        <div className="text-right">
-          <p>ENGINEERED BY DEEPMIND</p>
-          <p>© 2025</p>
-        </div>
-      </footer>
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
