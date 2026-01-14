@@ -29,7 +29,7 @@ export default function Home() {
             your code and your next job.
           </h2>
           <p className="text-[#a1a1aa] text-sm sm:text-base max-w-xl mx-auto font-mono tracking-tight italic">
-            "No mundo onde a IA faz o técnico, o desafio não é construir, mas saber o que construir."
+            "In a world where AI writes the code, the challenge isn't building—it's knowing <span className="text-[#ededed] not-italic font-bold">what</span> to build."
           </p>
         </section>
 
