@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
+import { Navbar } from "@/components/navbar";
 
 export default function Home() {
   return (
@@ -8,16 +9,11 @@ export default function Home() {
       {/* Decorative Grid Background - Subtle */}
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#27272a_1px,transparent_1px),linear-gradient(to_bottom,#27272a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
 
-      {/* Header */}
-      <header className="absolute top-0 left-0 right-0 p-6 z-10 flex justify-between items-center">
-        <h1 className="text-xl font-bold tracking-tighter uppercase">VOID</h1>
-        <div className="hidden sm:block text-xs text-muted-foreground uppercase tracking-widest">
-          Build / Engineer / Deploy
-        </div>
-      </header>
+      {/* Navbar */}
+      <Navbar />
 
       {/* Main Content */}
-      <main className="z-10 flex flex-col items-center text-center w-full max-w-3xl space-y-12">
+      <main className="z-10 flex flex-col items-center text-center w-full max-w-3xl space-y-12 mt-20">
         
         {/* Hero Section */}
         <section className="space-y-6">
