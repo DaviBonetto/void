@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navbar } from "@/components/navbar";
 import { HowItWorks } from "@/components/how-it-works";
+import { TechOrbit } from "@/components/tech-orbit";
 
 export default function Home() {
   return (
@@ -16,6 +17,9 @@ export default function Home() {
       {/* Main Content */}
       <main className="z-10 flex flex-col items-center text-center w-full max-w-5xl space-y-24 mt-20 mb-20">
         
+        {/* ... Hero Section ... */}
+        {/* ... Action Card ... */}
+
         {/* Hero Section */}
         <section className="space-y-6 w-full max-w-3xl mx-auto">
           <div className="inline-block px-3 py-1 mb-4 text-xs font-medium border border-[#27272a] bg-[#050505] text-[#ededed] uppercase tracking-widest">
@@ -88,6 +92,9 @@ export default function Home() {
 
         {/* How It Works Section */}
         <HowItWorks />
+
+        {/* Tech Orbit Section */}
+        <TechOrbit />
 
       </main>
 
